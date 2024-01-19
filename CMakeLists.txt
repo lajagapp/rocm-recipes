@@ -47,13 +47,12 @@ function(install_recipes)
     endforeach()
 endfunction()
 
-install_recipes(recipes/*)
 if(DEFINED ENV{ROCM_USE_INTERNAL_DEPS})
-install_recipes(internal/*)
-endif()
-
-if(DEFINED ENV{ROCM_USE_MIOPEN_DEPS})
-install_recipes(miopen/*)
+    install_recipes(internal/*)
+elseif(DEFINED ENV{ROCM_USE_MIOPEN_DEPS})
+    install_recipes(miopen/*)
+else()
+    install_recipes(recipes/*)
 endif()
 
 install(DIRECTORY cmake DESTINATION share/)
